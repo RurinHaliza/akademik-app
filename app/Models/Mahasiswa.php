@@ -13,12 +13,13 @@ class Mahasiswa extends Model
 
     protected $fillable = [
         'nim',
+        'user_id',
         'nama',
         'alamat',
         'nohp',
         'semester',
         'id_gol',
-        'user_id',
+        
     ];
 
     public function golongan()

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class DosenController extends Controller
 {
@@ -21,7 +23,20 @@ class DosenController extends Controller
 
     public function store(Request $request)
     {
-        Dosen::create($request->all());
+        $user = User::create([
+            'name' => $request->nama,
+            'email' => $request->email,
+            'password' => Hash::make($request->nip),
+            'role' => 'dosen'
+        ]);
+
+        Dosen::create([
+            'nip' => $request->nip,
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'nohp' => $request->nohp,
+            'user_id' => $user->id
+        ]);
 
         return redirect('/dosen')
             ->with('success', 'Data dosen berhasil ditambahkan');
