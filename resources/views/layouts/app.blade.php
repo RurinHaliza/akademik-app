@@ -59,9 +59,23 @@
                                 <ul class="dropdown-menu dropdown-menu-end">
 
                                     <li>
-                                        <form method="POST" action="{{ route('logout') }}">
+                                        <a href="{{ route('profile.index') }}"
+                                        class="dropdown-item">
+                                            Profil Saya
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+
+                                    <li>
+                                        <form method="POST"
+                                            action="{{ route('logout') }}">
                                             @csrf
-                                            <button type="submit" class="dropdown-item">
+
+                                            <button type="submit"
+                                                    class="dropdown-item">
                                                 Logout
                                             </button>
                                         </form>

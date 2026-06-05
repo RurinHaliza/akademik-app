@@ -11,12 +11,25 @@ class KrsController extends Controller
 {
     public function index()
     {
+    if(auth()->user()->role == 'admin')
+    {
         $krs = Krs::with([
             'mahasiswa',
             'matakuliah'
         ])->get();
+    }
+    else
+    {
+        $nim = auth()->user()->mahasiswa->nim;
 
-        return view('krs.index', compact('krs'));
+        $krs = Krs::with([
+            'mahasiswa',
+            'matakuliah'
+        ])
+        ->where('nim',$nim)
+        ->get();
+    }
+    return view('krs.index', compact('krs'));
     }
 
     public function create()

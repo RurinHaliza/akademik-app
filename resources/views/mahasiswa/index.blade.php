@@ -28,6 +28,7 @@
                 <tr>
                     <th>NIM</th>
                     <th>Nama</th>
+                    <th>Email</th>
                     <th>Alamat</th>
                     <th>No HP</th>
                     <th>Semester</th>
@@ -43,6 +44,7 @@
                 <tr>
                     <td>{{ $mhs->nim }}</td>
                     <td>{{ $mhs->nama }}</td>
+                    <td>{{ $m->user->email ?? '-' }}</td>
                     <td>{{ $mhs->alamat }}</td>
                     <td>{{ $mhs->nohp }}</td>
                     <td>{{ $mhs->semester }}</td>

@@ -13,6 +13,7 @@ use App\Http\Controllers\JadwalAkademikController;
 use App\Http\Controllers\KrsController;
 use App\Http\Controllers\PresensiAkademikController;
 use App\Http\Controllers\PengampuController;
+use App\Http\Controllers\ProfileController;
 
 
 // TEST ROLE
@@ -72,3 +73,24 @@ Route::middleware(['auth','role:admin,mahasiswa'])->group(function () {
     Route::resource('krs', KrsController::class);
 
 });
+
+Route::middleware(['auth','role:mahasiswa'])->group(function () {
+
+    Route::get('/jadwal-saya',
+        [JadwalAkademikController::class,'jadwalSaya'])
+        ->name('jadwal.saya');
+
+});
+
+Route::middleware(['auth','role:mahasiswa'])->group(function () {
+
+    Route::get('/presensi-saya',
+        [PresensiAkademikController::class, 'presensiSaya'])
+        ->name('presensi.saya');
+
+});
+
+Route::get('/profile', [ProfileController::class, 'index'])
+    ->name('profile.index');
+
+    

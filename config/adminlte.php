@@ -134,11 +134,11 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
+    'usermenu_image' => true,
     'usermenu_desc' => false,
-    'usermenu_profile_url' => false,
+    'usermenu_profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -342,6 +342,7 @@ return [
         'text' => 'Pengampu',
         'url'  => 'pengampu',
         'icon' => 'fas fa-chalkboard-teacher',
+        'can'  => 'admin',
     ],
 
     [
@@ -431,6 +432,20 @@ return [
         'url'  => 'krs',
         'icon' => 'fas fa-edit',
         'can' => 'mahasiswa',
+    ],
+
+    [
+        'text' => 'Jadwal Kuliah',
+        'url'  => '/jadwal-saya',
+        'icon' => 'fas fa-calendar',
+        'can'  => 'mahasiswa',
+    ],
+
+    [
+        'text' => 'Presensi Saya',
+        'url'  => '/presensi-saya',
+        'icon' => 'fas fa-user-check',
+        'can'  => 'mahasiswa',
     ],
 
 ],

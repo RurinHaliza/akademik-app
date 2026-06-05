@@ -10,10 +10,10 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Mahasiswa;
 use App\Models\Dosen;
 
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -54,5 +54,20 @@ class User extends Authenticatable
     public function dosen()
     {
         return $this->hasOne(Dosen::class);
+    }
+
+    public function adminlte_image()
+    {
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name);
+    }
+
+    public function adminlte_desc()
+    {
+        return ucfirst($this->role);
+    }
+
+    public function adminlte_profile_url()
+    {
+        return route('profile.index');
     }
 }

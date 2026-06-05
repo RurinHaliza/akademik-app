@@ -12,7 +12,7 @@ class MahasiswaController extends Controller
 {
     public function index()
     {
-        $mahasiswa = Mahasiswa::with('golongan')->get();
+        $mahasiswa = Mahasiswa::with('golongan','user')->get();
 
         return view('mahasiswa.index', compact('mahasiswa'));
     }
@@ -26,6 +26,17 @@ class MahasiswaController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'nim' => 'required|unique:mahasiswas,nim',
+            'email' => 'required|email|unique:users,email',
+            'nama' => 'required',
+            'alamat' => 'required',
+            'nohp' => 'required',
+            'semester' => 'required',
+            'id_gol' => 'required'
+        ]);
+
         $user = User::create([
             'name' => $request->nama,
             'email' => $request->email,
@@ -59,7 +70,38 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = Mahasiswa::findOrFail($nim);
 
-        $mahasiswa->update($request->all());
+        $request->validate([
+            'email' => 'required|email|unique:users,email,' . $mahasiswa->user_id,
+        ]);
+
+        $mahasiswa->update([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'nohp' => $request->nohp,
+            'semester' => $request->semester,
+            'id_gol' => $request->id_gol,
+        ]);
+
+        if($mahasiswa->user)
+        {
+            $mahasiswa->user->update([
+                'name' => $request->nama,
+                'email' => $request->email,
+            ]);
+        }
+        else
+        {
+            $user = User::create([
+                'name' => $request->nama,
+                'email' => $request->email,
+                'password' => Hash::make($mahasiswa->nim),
+                'role' => 'mahasiswa'
+            ]);
+
+            $mahasiswa->update([
+                'user_id' => $user->id
+            ]);
+        }
 
         return redirect('/mahasiswa')
             ->with('success', 'Data mahasiswa berhasil diupdate');
@@ -69,11 +111,16 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = Mahasiswa::findOrFail($nim);
 
+        if($mahasiswa->user)
+        {
+            $mahasiswa->user->delete();
+        }
+
         $mahasiswa->delete();
 
         return redirect('/mahasiswa')
-            ->with('success', 'Data mahasiswa berhasil dihapus');
+            ->with('success','Data mahasiswa berhasil dihapus');
     }
 
-    
+       
 }

@@ -33,9 +33,14 @@ class DashboardController extends Controller
         {
             $dosen = auth()->user()->dosen;
 
+            $pengampus = $dosen->pengampu()
+                ->with('matakuliah')
+                ->get();
+
             return view('dashboard.dosen', [
                 'dosen' => $dosen,
-                'jumlahPengampu' => $dosen->pengampu()->count(),
+                'pengampus' => $pengampus,
+                'jumlahPengampu' => $pengampus->count(),
                 'jumlahPresensi' => \App\Models\PresensiAkademik::count()
             ]);
         }

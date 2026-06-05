@@ -7,16 +7,40 @@ use App\Models\Matakuliah;
 use App\Models\Ruang;
 use App\Models\Golongan;
 use Illuminate\Http\Request;
+use App\Models\Krs;
 
 class JadwalAkademikController extends Controller
 {
     public function index()
     {
-        $jadwal = JadwalAkademik::with([
-            'matakuliah',
-            'ruang',
-            'golongan'
-        ])->get();
+        if(auth()->user()->role == 'admin')
+        {
+            $jadwal = JadwalAkademik::with([
+                'matakuliah',
+                'ruang',
+                'golongan'
+            ])->get();
+        }
+        else
+        {
+            $dosen = auth()->user()->dosen;
+
+            if(!$dosen)
+            {
+                abort(403, 'Data dosen tidak ditemukan');
+            }
+
+            $kodeMk = $dosen->pengampu()
+                ->pluck('kode_mk');
+
+            $jadwal = JadwalAkademik::with([
+                'matakuliah',
+                'ruang',
+                'golongan'
+            ])
+            ->whereIn('kode_mk', $kodeMk)
+            ->get();
+        }
 
         return view('jadwal.index', compact('jadwal'));
     }
@@ -76,5 +100,26 @@ class JadwalAkademikController extends Controller
 
         return redirect('/jadwal')
             ->with('success', 'Jadwal berhasil dihapus');
+    }
+
+    public function jadwalSaya()
+    {
+        $nim = auth()->user()->mahasiswa->nim;
+
+        $kodeMk = Krs::where('nim', $nim)
+            ->pluck('kode_mk');
+
+        $jadwal = JadwalAkademik::with([
+            'matakuliah',
+            'ruang',
+            'golongan'
+        ])
+        ->whereIn('kode_mk', $kodeMk)
+        ->get();
+
+        return view(
+            'mahasiswa.jadwal',
+            compact('jadwal')
+        );
     }
 }

@@ -11,12 +11,28 @@ class PresensiAkademikController extends Controller
 {
     public function index()
     {
+    if(auth()->user()->role == 'admin')
+    {
         $presensi = PresensiAkademik::with([
             'mahasiswa',
             'matakuliah'
         ])->get();
+    }
+    else
+    {
+        $kodeMk = auth()->user()
+            ->dosen
+            ->pengampu
+            ->pluck('kode_mk');
 
-        return view('presensi.index', compact('presensi'));
+        $presensi = PresensiAkademik::with([
+            'mahasiswa',
+            'matakuliah'
+        ])
+        ->whereIn('kode_mk',$kodeMk)
+        ->get();
+    }
+    return view('presensi.index', compact('presensi'));
     }
 
     public function create()
@@ -70,5 +86,22 @@ class PresensiAkademikController extends Controller
 
         return redirect('/presensi')
             ->with('success', 'Presensi berhasil dihapus');
+    }
+
+    public function presensiSaya()
+    {
+        $nim = auth()->user()->mahasiswa->nim;
+
+        $presensi = PresensiAkademik::with([
+            'matakuliah'
+        ])
+        ->where('nim', $nim)
+        ->orderBy('tanggal', 'desc')
+        ->get();
+
+        return view(
+            'mahasiswa.presensi',
+            compact('presensi')
+        );
     }
 }

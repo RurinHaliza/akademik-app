@@ -8,12 +8,16 @@
 
 @section('content')
 
+@if(auth()->user()->role == 'admin')
+
 <a href="{{ route('pengampu.create') }}"
    class="btn btn-primary mb-3">
 
     Tambah Pengampu
 
 </a>
+
+@endif
 
 <table class="table table-bordered">
 

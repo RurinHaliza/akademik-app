@@ -8,6 +8,21 @@
 
 @section('content')
 
+<div class="card">
+    <div class="card-header">
+        Profil Dosen
+    </div>
+
+    <div class="card-body">
+
+        <p><b>NIP :</b> {{ $dosen->nip }}</p>
+        <p><b>Nama :</b> {{ $dosen->nama }}</p>
+        <p><b>Alamat :</b> {{ $dosen->alamat }}</p>
+        <p><b>No HP :</b> {{ $dosen->nohp }}</p>
+
+    </div>
+</div>
+
 <div class="row">
 
     <div class="col-md-4">
@@ -36,19 +51,51 @@
 
 </div>
 
-<div class="card">
+<div class="card mt-4">
+
     <div class="card-header">
-        Profil Dosen
+
+        Mata Kuliah Diampu
+
     </div>
 
     <div class="card-body">
 
-        <p><b>NIP :</b> {{ $dosen->nip }}</p>
-        <p><b>Nama :</b> {{ $dosen->nama }}</p>
-        <p><b>Alamat :</b> {{ $dosen->alamat }}</p>
-        <p><b>No HP :</b> {{ $dosen->nohp }}</p>
+        <table class="table table-bordered">
+
+            <thead>
+
+                <tr>
+                    <th>Kode MK</th>
+                    <th>Nama Mata Kuliah</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach($pengampus as $item)
+
+                <tr>
+
+                    <td>
+                        {{ $item->kode_mk }}
+                    </td>
+
+                    <td>
+                        {{ $item->matakuliah->nama_mk }}
+                    </td>
+
+                </tr>
+
+                @endforeach
+
+            </tbody>
+
+        </table>
 
     </div>
+
 </div>
 
 @stop

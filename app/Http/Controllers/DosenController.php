@@ -11,7 +11,7 @@ class DosenController extends Controller
 {
     public function index()
     {
-        $dosen = Dosen::all();
+        $dosen = Dosen::with('user')->get();
 
         return view('dosen.index', compact('dosen'));
     }
@@ -23,6 +23,14 @@ class DosenController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'nip' => 'required|unique:dosens,nip',
+            'email' => 'required|email|unique:users,email',
+            'nama' => 'required',
+            'alamat' => 'required',
+            'nohp' => 'required'
+        ]);
+
         $user = User::create([
             'name' => $request->nama,
             'email' => $request->email,
@@ -53,7 +61,32 @@ class DosenController extends Controller
     {
         $dosen = Dosen::findOrFail($nip);
 
-        $dosen->update($request->all());
+        $dosen->update([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'nohp' => $request->nohp,
+        ]);
+
+        if($dosen->user)
+        {
+            $dosen->user->update([
+                'name' => $request->nama,
+                'email' => $request->email,
+            ]);
+        }
+        else
+        {
+            $user = User::create([
+                'name' => $request->nama,
+                'email' => $request->email,
+                'password' => Hash::make($dosen->nip),
+                'role' => 'dosen'
+            ]);
+
+            $dosen->update([
+                'user_id' => $user->id
+            ]);
+        }
 
         return redirect('/dosen')
             ->with('success', 'Data dosen berhasil diupdate');
@@ -63,9 +96,14 @@ class DosenController extends Controller
     {
         $dosen = Dosen::findOrFail($nip);
 
+        if($dosen->user)
+        {
+            $dosen->user->delete();
+        }
+
         $dosen->delete();
 
         return redirect('/dosen')
-            ->with('success', 'Data dosen berhasil dihapus');
+            ->with('success','Data dosen berhasil dihapus');
     }
 }

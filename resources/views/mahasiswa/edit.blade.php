@@ -36,6 +36,15 @@
             </div>
 
             <div class="form-group">
+                <label>Email</label>
+                <input type="email"
+                    name="email"
+                    class="form-control"
+                    value="{{ $mahasiswa->user->email ?? '' }}"
+                    required>
+            </div>
+
+            <div class="form-group">
                 <label>Alamat</label>
                 <textarea name="alamat"
                           class="form-control"

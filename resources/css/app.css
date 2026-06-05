@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.navbar-nav .d-none.d-md-inline {
+    display: none !important;
+}

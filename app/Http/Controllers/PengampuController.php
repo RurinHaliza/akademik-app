@@ -14,7 +14,24 @@ class PengampuController extends Controller
      */
     public function index()
     {
-        $pengampus = Pengampu::with(['dosen','matakuliah'])->get();
+        if(auth()->user()->role == 'admin')
+        {
+            $pengampus = Pengampu::with([
+                'dosen',
+                'matakuliah'
+            ])->get();
+        }
+        else
+        {
+            $nip = auth()->user()->dosen->nip;
+
+            $pengampus = Pengampu::with([
+                'dosen',
+                'matakuliah'
+            ])
+            ->where('nip',$nip)
+            ->get();
+        }
 
         return view('pengampu.index', compact('pengampus'));
     }
