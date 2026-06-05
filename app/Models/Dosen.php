@@ -25,6 +25,6 @@ class Dosen extends Model
     }
     public function pengampu()
     {
-        return $this->hasMany(Pengampu::class, 'nip');
+        return $this->hasMany(Pengampu::class, 'nip', 'nip');
     }
 }

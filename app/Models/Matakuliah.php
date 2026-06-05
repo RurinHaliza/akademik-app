@@ -29,6 +29,6 @@ class Matakuliah extends Model
 
     public function pengampu()
     {
-        return $this->hasMany(Pengampu::class, 'kode_mk');
+        return $this->hasMany(Pengampu::class, 'kode_mk', 'kode_mk');
     }
 }

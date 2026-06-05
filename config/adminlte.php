@@ -339,6 +339,12 @@ return [
     ],
 
     [
+        'text' => 'Pengampu',
+        'url'  => 'pengampu',
+        'icon' => 'fas fa-chalkboard-teacher',
+    ],
+
+    [
         'text' => 'Golongan',
         'url'  => 'golongan',
         'icon' => 'fas fa-users',

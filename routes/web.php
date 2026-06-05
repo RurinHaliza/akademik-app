@@ -12,7 +12,7 @@ use App\Http\Controllers\RuangController;
 use App\Http\Controllers\JadwalAkademikController;
 use App\Http\Controllers\KrsController;
 use App\Http\Controllers\PresensiAkademikController;
-use App\Http\Controllers\PdfController;
+use App\Http\Controllers\PengampuController;
 
 
 // TEST ROLE
@@ -49,6 +49,8 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::resource('dosen', DosenController::class);
 
     Route::resource('matakuliah', MatakuliahController::class);
+
+    Route::resource('pengampu', PengampuController::class);
 
     Route::resource('golongan', GolonganController::class);
 
