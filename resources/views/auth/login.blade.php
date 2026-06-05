@@ -151,9 +151,9 @@
 
                     <div class="text-center mt-3">
 
-                        <a href="{{ route('register') }}">
-                            Belum punya akun? Daftar
-                        </a>
+                        <div class="alert alert-light mt-3 text-center mb-0">
+                            Akun mahasiswa dan dosen dibuat oleh administrator sistem.
+                        </div>
 
                     </div>
 

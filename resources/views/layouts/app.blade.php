@@ -35,35 +35,43 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                            @guest
-                                @if (Route::has('login'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('login') }}">
-                                            Login
-                                        </a>
-                                    </li>
-                                @endif
-                            @endguest
+
+                        @guest
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">
+                                    Login
+                                </a>
+                            </li>
+
                         @else
+
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a class="nav-link dropdown-toggle"
+                                href="#"
+                                role="button"
+                                data-bs-toggle="dropdown">
+
                                     {{ Auth::user()->name }}
+
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item">
+                                                Logout
+                                            </button>
+                                        </form>
+                                    </li>
+
+                                </ul>
                             </li>
+
                         @endguest
+
                     </ul>
                 </div>
             </div>
