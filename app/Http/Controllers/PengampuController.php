@@ -66,7 +66,17 @@ class PengampuController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $pengampu = Pengampu::findOrFail($id);
+
+        $dosens = Dosen::all();
+
+        $matakuliahs = Matakuliah::all();
+
+        return view('pengampu.edit', compact(
+            'pengampu',
+            'dosens',
+            'matakuliahs'
+        ));
     }
 
     /**
@@ -74,7 +84,21 @@ class PengampuController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nip' => 'required',
+            'kode_mk' => 'required'
+        ]);
+
+        $pengampu = Pengampu::findOrFail($id);
+
+        $pengampu->update([
+            'nip' => $request->nip,
+            'kode_mk' => $request->kode_mk
+        ]);
+
+        return redirect()
+            ->route('pengampu.index')
+            ->with('success','Data pengampu berhasil diubah');
     }
 
     /**
@@ -82,6 +106,10 @@ class PengampuController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Pengampu::findOrFail($id)->delete();
+
+        return redirect()
+            ->route('pengampu.index')
+            ->with('success','Data pengampu berhasil dihapus');
     }
 }

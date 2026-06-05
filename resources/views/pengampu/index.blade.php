@@ -22,6 +22,7 @@
             <th>No</th>
             <th>Dosen</th>
             <th>Mata Kuliah</th>
+            <th>Aksi</th>
         </tr>
     </thead>
 
@@ -33,9 +34,34 @@
 
             <td>{{ $loop->iteration }}</td>
 
-            <td>{{ $item->dosen->nama_dosen }}</td>
+            <td>{{ $item->dosen->nama }}</td>
 
             <td>{{ $item->matakuliah->nama_mk }}</td>
+
+            <td>
+                <a href="{{ route('pengampu.edit',$item->id) }}"
+                class="btn btn-warning btn-sm">
+
+                    Edit
+
+                </a>
+
+                <form action="{{ route('pengampu.destroy',$item->id) }}"
+                    method="POST"
+                    style="display:inline-block">
+
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit"
+                            class="btn btn-danger btn-sm">
+
+                        Hapus
+
+                    </button>
+
+                </form>
+            </td>
 
         </tr>
 

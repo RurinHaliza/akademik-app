@@ -16,9 +16,11 @@
     </div>
 @endif
 
+@if(auth()->user()->role == 'admin')
 <a href="/jadwal/create" class="btn btn-primary mb-3">
     Tambah Jadwal
 </a>
+@endif
 
 <div class="card">
     <div class="card-body">
@@ -31,7 +33,9 @@
                     <th>Mata Kuliah</th>
                     <th>Ruangan</th>
                     <th>Golongan</th>
+                    @if(auth()->user()->role == 'admin')
                     <th>Aksi</th>
+                    @endif
                 </tr>
             </thead>
 
@@ -46,16 +50,17 @@
                     <td>{{ $j->ruang->nama_ruang }}</td>
                     <td>{{ $j->golongan->nama_gol }}</td>
 
+                    @if(auth()->user()->role == 'admin')
                     <td>
 
                         <a href="/jadwal/{{ $j->id }}/edit"
-                           class="btn btn-warning btn-sm">
+                        class="btn btn-warning btn-sm">
                             Edit
                         </a>
 
                         <form action="/jadwal/{{ $j->id }}"
-                              method="POST"
-                              style="display:inline-block">
+                            method="POST"
+                            style="display:inline-block">
 
                             @csrf
                             @method('DELETE')
@@ -67,6 +72,7 @@
                         </form>
 
                     </td>
+                    @endif
 
                 </tr>
 

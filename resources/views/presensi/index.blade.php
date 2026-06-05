@@ -16,9 +16,11 @@
     </div>
 @endif
 
+@if(auth()->user()->role == 'admin')
 <a href="/presensi/create" class="btn btn-primary mb-3">
     Tambah Presensi
 </a>
+@endif
 
 <div class="card">
     <div class="card-body">
@@ -32,7 +34,9 @@
                     <th>Mahasiswa</th>
                     <th>Mata Kuliah</th>
                     <th>Status</th>
+                    @if(auth()->user()->role == 'admin')
                     <th>Aksi</th>
+                    @endif
                 </tr>
             </thead>
 
@@ -71,16 +75,17 @@
 
                     </td>
 
+                    @if(auth()->user()->role == 'admin')
                     <td>
 
                         <a href="/presensi/{{ $p->id }}/edit"
-                           class="btn btn-warning btn-sm">
+                        class="btn btn-warning btn-sm">
                             Edit
                         </a>
 
                         <form action="/presensi/{{ $p->id }}"
-                              method="POST"
-                              style="display:inline-block">
+                            method="POST"
+                            style="display:inline-block">
 
                             @csrf
                             @method('DELETE')
@@ -92,6 +97,7 @@
                         </form>
 
                     </td>
+                    @endif
 
                 </tr>
 

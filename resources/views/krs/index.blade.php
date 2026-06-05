@@ -16,9 +16,11 @@
     </div>
 @endif
 
+@if(auth()->user()->role == 'admin')
 <a href="/krs/create" class="btn btn-primary mb-3">
     Tambah KRS
 </a>
+@endif
 
 <div class="card">
     <div class="card-body">
@@ -29,7 +31,9 @@
                 <tr>
                     <th>Mahasiswa</th>
                     <th>Mata Kuliah</th>
+                    @if(auth()->user()->role == 'admin')
                     <th>Aksi</th>
+                    @endif
                 </tr>
             </thead>
 
@@ -42,6 +46,7 @@
                     <td>{{ $k->mahasiswa->nama }}</td>
                     <td>{{ $k->matakuliah->nama_mk }}</td>
 
+                    @if(auth()->user()->role == 'admin')
                     <td>
 
                         <a href="/krs/{{ $k->id }}/edit"
@@ -63,6 +68,7 @@
                         </form>
 
                     </td>
+                    @endif
 
                 </tr>
 
