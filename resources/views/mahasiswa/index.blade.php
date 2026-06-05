@@ -44,7 +44,7 @@
                 <tr>
                     <td>{{ $mhs->nim }}</td>
                     <td>{{ $mhs->nama }}</td>
-                    <td>{{ $m->user->email ?? '-' }}</td>
+                    <td>{{ $mhs->user->email ?? '-' }}</td>
                     <td>{{ $mhs->alamat }}</td>
                     <td>{{ $mhs->nohp }}</td>
                     <td>{{ $mhs->semester }}</td>

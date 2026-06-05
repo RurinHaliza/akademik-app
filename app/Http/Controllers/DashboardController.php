@@ -17,7 +17,9 @@ class DashboardController extends Controller
         if(auth()->user()->role == 'admin')
         {
             $golonganChart = Golongan::withCount('mahasiswa')->get();
-
+            $mahasiswaTerbaru = Mahasiswa::latest()->take(3)->get();
+            $dosenTerbaru = Dosen::latest()->take(2)->get();
+            
             return view('dashboard.admin', [
                 'totalMahasiswa' => Mahasiswa::count(),
                 'totalDosen' => Dosen::count(),
@@ -26,6 +28,8 @@ class DashboardController extends Controller
                 'totalKrs' => Krs::count(),
                 'totalPresensi' => PresensiAkademik::count(),
                 'golonganChart' => $golonganChart,
+                'mahasiswaTerbaru' => $mahasiswaTerbaru,
+                'dosenTerbaru' => $dosenTerbaru,
             ]);
         }
 

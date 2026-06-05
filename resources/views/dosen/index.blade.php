@@ -28,6 +28,7 @@
                 <tr>
                     <th>NIP</th>
                     <th>Nama</th>
+                    <th>Email</th>
                     <th>Alamat</th>
                     <th>No HP</th>
                     <th>Aksi</th>
@@ -41,6 +42,7 @@
                 <tr>
                     <td>{{ $dsn->nip }}</td>
                     <td>{{ $dsn->nama }}</td>
+                    <td>{{ $dsn->user->email ?? '-' }}</td>
                     <td>{{ $dsn->alamat }}</td>
                     <td>{{ $dsn->nohp }}</td>
 

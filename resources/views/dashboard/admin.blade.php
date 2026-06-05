@@ -86,6 +86,7 @@
         </div>
     </div>
 
+        <div class="col-lg-4 col-6">
             <div class="card">
 
                 <div class="card-header">
@@ -99,6 +100,35 @@
                 </div>
 
             </div>
+        </div>
+
+        <div class="col-lg-4 col-6">
+            <div class="card">
+                <div class="card-header">
+                    Aktivitas Terbaru
+                </div>
+
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+
+                        @foreach($mahasiswaTerbaru as $mhs)
+                            <li class="list-group-item">
+                                <i class="fas fa-user-graduate text-primary"></i>
+                                Mahasiswa {{ $mhs->nama }} ditambahkan
+                            </li>
+                        @endforeach
+
+                        @foreach($dosenTerbaru as $dsn)
+                            <li class="list-group-item">
+                                <i class="fas fa-chalkboard-teacher text-success"></i>
+                                Dosen {{ $dsn->nama }} ditambahkan
+                            </li>
+                        @endforeach
+
+                    </ul>
+                </div>
+            </div>
+        </div>
 
 </div>
 

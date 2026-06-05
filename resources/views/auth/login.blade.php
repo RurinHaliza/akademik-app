@@ -1,163 +1,300 @@
 @extends('layouts.app')
 
 @section('content')
+
 <style>
-    body {
-        background: linear-gradient(135deg, #4f46e5, #2563eb);
-        min-height: 100vh;
+    .navbar {
+        display: none !important;
     }
 
-    .login-wrapper {
-        min-height: 85vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    body{
+        background: linear-gradient(135deg,#003366,#00509d,#0077cc);
+        min-height:100vh;
     }
 
-    .login-card {
-        width: 100%;
-        max-width: 450px;
-        border: none;
-        border-radius: 20px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        overflow: hidden;
+    .login-container{
+        min-height:90vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
     }
 
-    .login-header {
-        text-align: center;
-        padding: 30px 20px 15px;
+    .login-card{
+        width:100%;
+        max-width:1100px;
+        border:none;
+        border-radius:25px;
+        overflow:hidden;
+        box-shadow:0 20px 40px rgba(0,0,0,.2);
     }
 
-    .login-header h2 {
-        font-weight: 700;
-        color: #1f2937;
-        margin-bottom: 5px;
+    .left-panel{
+        background:white;
+        padding:60px 40px;
+        text-align:center;
+        height:100%;
     }
 
-    .login-header p {
-        color: #6b7280;
-        margin-bottom: 0;
+    .left-panel img{
+        width:180px;
+        height:auto;
+        margin-bottom:25px;
     }
 
-    .form-control {
-        border-radius: 12px;
-        padding: 12px;
+    .left-panel h1{
+        font-weight:700;
+        color:#003366;
+        margin-bottom:10px;
     }
 
-    .btn-login {
-        border-radius: 12px;
-        padding: 12px;
-        font-weight: 600;
+    .left-panel h5{
+        color:#6c757d;
+        margin-bottom:35px;
     }
 
-    .logo-circle {
-        width: 80px;
-        height: 80px;
-        background: #2563eb;
-        color: white;
-        border-radius: 50%;
-        margin: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 30px;
-        font-weight: bold;
-        margin-bottom: 15px;
+    .feature-list{
+        text-align:left;
+        max-width:300px;
+        margin:auto;
+    }
+
+    .feature-list p{
+        font-size:16px;
+        margin-bottom:15px;
+        color:#374151;
+    }
+
+    .right-panel{
+        background:#f8fafc;
+        padding:60px 50px;
+    }
+
+    .login-title{
+        font-weight:700;
+        color:#003366;
+        margin-bottom:10px;
+    }
+
+    .login-subtitle{
+        color:#6b7280;
+        margin-bottom:30px;
+    }
+
+    .form-control{
+        border-radius:12px;
+        padding:12px;
+    }
+
+    .input-group-text{
+        border-radius:12px 0 0 12px;
+    }
+
+    .btn-login{
+        border-radius:12px;
+        padding:12px;
+        font-weight:600;
+        font-size:16px;
+    }
+
+    .login-note{
+        font-size:14px;
+        color:#6b7280;
+        text-align:center;
+        margin-top:20px;
+    }
+
+    .footer-text{
+        text-align:center;
+        margin-top:30px;
+        color:#9ca3af;
+        font-size:13px;
+    }
+
+    @media(max-width:768px){
+
+        .left-panel{
+            display:none;
+        }
+
+        .right-panel{
+            padding:40px 25px;
+        }
+
+        .login-card{
+            max-width:450px;
+        }
     }
 </style>
 
-<div class="container">
-    <div class="login-wrapper">
+<div class="container-fluid">
+    <div class="login-container">
 
         <div class="card login-card">
 
-            <div class="login-header">
+            <div class="row g-0">
 
-                <div class="logo-circle">
-                    SIA
-                </div>
+                <!-- PANEL KIRI -->
+                <div class="col-md-6">
 
-                <h2>Sistem Informasi Akademik</h2>
-                <p>Silakan login untuk melanjutkan</p>
+                    <div class="left-panel">
 
-            </div>
+                        <img src="{{ asset('images/Logo_Polije.png') }}"
+                             alt="Logo POLIJE">
 
-            <div class="card-body px-4 pb-4">
+                        <h1>SIAKAD POLIJE</h1>
 
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
+                        <h5>Politeknik Negeri Jember</h5>
 
-                    <div class="mb-3">
+                        <div class="feature-list">
 
-                        <label class="form-label">
-                            Email
-                        </label>
+                            <p>
+                                <i class="fas fa-check-circle text-success"></i>
+                                Kartu Rencana Studi (KRS)
+                            </p>
 
-                        <input id="email"
-                               type="email"
-                               class="form-control @error('email') is-invalid @enderror"
-                               name="email"
-                               value="{{ old('email') }}"
-                               required
-                               autofocus>
+                            <p>
+                                <i class="fas fa-check-circle text-success"></i>
+                                Presensi Akademik
+                            </p>
 
-                        @error('email')
-                            <span class="invalid-feedback">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                            <p>
+                                <i class="fas fa-check-circle text-success"></i>
+                                Jadwal Perkuliahan
+                            </p>
 
-                    </div>
+                            <p>
+                                <i class="fas fa-check-circle text-success"></i>
+                                Monitoring Akademik
+                            </p>
 
-                    <div class="mb-3">
-
-                        <label class="form-label">
-                            Password
-                        </label>
-
-                        <input id="password"
-                               type="password"
-                               class="form-control @error('password') is-invalid @enderror"
-                               name="password"
-                               required>
-
-                        @error('password')
-                            <span class="invalid-feedback">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-
-                    </div>
-
-                    <div class="form-check mb-3">
-
-                        <input class="form-check-input"
-                               type="checkbox"
-                               name="remember"
-                               id="remember">
-
-                        <label class="form-check-label" for="remember">
-                            Ingat Saya
-                        </label>
-
-                    </div>
-
-                    <button type="submit"
-                            class="btn btn-primary btn-login w-100">
-
-                        Login
-
-                    </button>
-
-                    <div class="text-center mt-3">
-
-                        <div class="alert alert-light mt-3 text-center mb-0">
-                            Akun mahasiswa dan dosen dibuat oleh administrator sistem.
                         </div>
 
                     </div>
 
-                </form>
+                </div>
+
+                <!-- PANEL KANAN -->
+                <div class="col-md-6">
+
+                    <div class="right-panel">
+
+                        <h2 class="login-title">
+                            Selamat Datang
+                        </h2>
+
+                        <p class="login-subtitle">
+                            Login untuk mengakses Sistem Informasi Akademik
+                        </p>
+
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
+
+                            <div class="mb-3">
+
+                                <label>Email</label>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+
+                                    <input type="email"
+                                           name="email"
+                                           value="{{ old('email') }}"
+                                           class="form-control @error('email') is-invalid @enderror"
+                                           placeholder="Masukkan email"
+                                           required
+                                           autofocus>
+
+                                </div>
+
+                                @error('email')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label>Password</label>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+
+                                    <input type="password"
+                                           id="password"
+                                           name="password"
+                                           class="form-control @error('password') is-invalid @enderror"
+                                           placeholder="Masukkan password"
+                                           required>
+
+                                    <button type="button"
+                                            class="btn btn-outline-secondary"
+                                            onclick="togglePassword()">
+
+                                        <i class="fas fa-eye"></i>
+
+                                    </button>
+
+                                </div>
+
+                                @error('password')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+
+                            </div>
+
+                            <div class="form-check mb-4">
+
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       name="remember"
+                                       id="remember">
+
+                                <label class="form-check-label"
+                                       for="remember">
+
+                                    Ingat Saya
+
+                                </label>
+
+                            </div>
+
+                            <button type="submit"
+                                    class="btn btn-primary btn-login w-100">
+
+                                Login
+
+                            </button>
+
+                            <div class="login-note">
+
+                                <i class="fas fa-info-circle"></i>
+
+                                Akun mahasiswa dan dosen dikelola oleh administrator akademik.
+
+                            </div>
+
+                            <div class="footer-text">
+
+                                © {{ date('Y') }}
+                                Politeknik Negeri Jember
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
 
             </div>
 
@@ -165,4 +302,21 @@
 
     </div>
 </div>
+
+<script>
+function togglePassword()
+{
+    const password = document.getElementById('password');
+
+    if(password.type === 'password')
+    {
+        password.type = 'text';
+    }
+    else
+    {
+        password.type = 'password';
+    }
+}
+</script>
+
 @endsection
